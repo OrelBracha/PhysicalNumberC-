@@ -28,17 +28,31 @@ using namespace ariel;
 
 	// "+" operator
 	PhysicalNumber PhysicalNumber::operator+(const PhysicalNumber& num)
-	{/*
+	{
 		int groupTypeNum1 = this->type/3 ;
 		int groupTypeNum2 = num.type/3 ;
 
-		*/
-
-		/*if (groupTypeNum1 != groupTypeNum2)
+		if (groupTypeNum1 != groupTypeNum2)
 		{
 			throw std::invalid argument("ERROR : can't add two numbers with different types");
-		}*/
-		return PhysicalNumber(0, Unit::KM);
+		}
+                
+                if(groupTypeNum1 == groupTypeNum2)
+                {
+                        return PhysicalNumber(this->number+num.number, this->type);
+                }
+                else
+                {
+                        if(groupTypeNum2 > groupTypeNum1)
+                        {
+                           if(groupTypeNum2 = 2 && groupTypeNum1 = 1)
+                           return PhysicalNumber(num.number+(this.number/1000),num.type);
+                           if(groupTypeNum2 = 2 && groupTypeNum1 = 0)
+                           return PhysicalNumber(num.number+(this.number/100000),num.type);
+                           if(groupTypeNum2 = 1 && groupTypeNum1 = 0)
+                           return PhysicalNumber(num.number+(this.number/100),num.type);
+                        }
+                return PhysicalNumber(0, Unit::KM);
 	}
 
 	// "-" operator
