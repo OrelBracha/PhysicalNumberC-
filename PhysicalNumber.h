@@ -14,6 +14,8 @@ namespace ariel
        
          //constructor
         PhysicalNumber(double number , Unit type) ;
+         //copy consrtuctor
+        PhysicalNumber(const PhysicalNumber& pn);
 
         //"+" onary
         const PhysicalNumber operator+() const;

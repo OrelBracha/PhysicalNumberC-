@@ -44,6 +44,14 @@ int main() {
     PhysicalNumber y(2, Unit::HOUR);
     PhysicalNumber z(10, Unit::M);
 
+    //Our Physical Numbers
+    PhysicalNumber km(4.5, Unit::KM);
+    PhysicalNumber m(4500, Unit::M);
+    PhysicalNumber hour(100, Unit::HOUR);
+    PhysicalNumber min(6000, Unit::MIN);
+    PhysicalNumber cm(50, Unit::CM);
+    PhysicalNumber sec(2050, Unit::SEC);
+
     testcase
     .setname("Basic output")
     .CHECK_OUTPUT(a, "2[km]")
@@ -288,19 +296,10 @@ int main() {
     .CHECK_EQUAL(b4<=b3,true)                                         //0.1[hour] <= 4[hour]
     .CHECK_EQUAL(b4<=PhysicalNumber(10,Unit::MIN),true)               //0.1[hour] <= 10[min]
     .CHECK_EQUAL(c2<=c3,true)                                         //3[kg] <= 4[ton]
-    .CHECK_EQUAL(c1<=c4,true)                                         
-
-    
-
-
+    .CHECK_EQUAL(c1<=c4,true)                                        
 
 //Our Tester
-    PhysicalNumber km(4.5, Unit::KM);
-    PhysicalNumber m(4500, Unit::M);
-    PhysicalNumber hour(100, Unit::HOUR);
-    PhysicalNumber min(6000, Unit::MIN);
-    PhysicalNumber cm(50, Unit::CM);
-    PhysicalNumber sec(2050, Unit::SEC);
+  
     .CHECK_EQUAL(m<=km,true)
     .CHECK_EQUAL(m==km,true)
     .CHECK_THROWS(km<=sec)
