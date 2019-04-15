@@ -25,19 +25,19 @@ PhysicalNumber::PhysicalNumber(const PhysicalNumber&  pn)
 
 
 //"+" onary
-const PhysicalNumber PhysicalNumber::operator+() const
+ PhysicalNumber PhysicalNumber::operator+()const 
 {
     return *this;
 }
 
 //"-" onary
-const PhysicalNumber PhysicalNumber::operator-() const
+PhysicalNumber PhysicalNumber::operator-() const 
 {
     return PhysicalNumber(-1*(this->number),this->type);
 }
 
 // "+" operator
-PhysicalNumber PhysicalNumber::operator+(const PhysicalNumber& other)
+PhysicalNumber PhysicalNumber::operator+(const PhysicalNumber& other)const 
 {
     int groupTypeNum1 = (int)this->type/3 ;
     int groupTypeNum2 = (int)other.type/3 ;
@@ -55,7 +55,7 @@ PhysicalNumber PhysicalNumber::operator+(const PhysicalNumber& other)
     }
 
     // "-" operator
-    PhysicalNumber PhysicalNumber::operator-(const PhysicalNumber& other)
+    PhysicalNumber PhysicalNumber::operator-(const PhysicalNumber& other)const 
     {
         int thisGroupType =  (int)this->type/3 ;
         int otherGroupType = (int)other.type/3 ;
@@ -284,12 +284,12 @@ PhysicalNumber PhysicalNumber::operator+(const PhysicalNumber& other)
 
 
     //">>" operator - input stream
-    istream& ariel::operator>>(istream& is,PhysicalNumber& pn)
+  /*  std::istream& ariel::operator>>(istream& is,PhysicalNumber& pn)
     {
         string str = "";
         double number;
         is>>number>>str;//25.2[kg]
-        string unitStr[9]={"CM" , "M" , "KM" , "SEC" , "MIN" , "HOUR" , "G" , "KG" , "TON"};
+        string unitStr[9]={"cm" , "m" , "km" , "sec" , "min" , "hour" , "g" , "kg" , "ton"};
         int find1=str.find('[');
         int find2 = str.find(']');
         bool ans=true; 
@@ -298,9 +298,9 @@ PhysicalNumber PhysicalNumber::operator+(const PhysicalNumber& other)
         double myValue=0;
         
         if(find1!=-1 && find2!=-1 && ans ) {
-            myUnit = str.substr(find1 + 1, find2 - find1 - 1);
+            myUnit = str.substr(find1 +1, find2 - find1 - 1);
 
-            for (int i = 0; i < 9; ++i) {
+            for (int i = 0; i < 9; i++) {
                 if (myUnit == unitStr[i]) {
                     checkUnit = i;
                     ans = false;
@@ -332,4 +332,43 @@ PhysicalNumber PhysicalNumber::operator+(const PhysicalNumber& other)
         pn.number = number;
         return is;
     }
+    */
+   istream& ariel::operator>>(std::istream& is, PhysicalNumber& ps) {
+    std::string in;
+    is >> in;
+
+    string temp[] = {"cm", "m", "km", "g", "kg", "ton", "sec", "min", "hour"};
+    int first = in.find('[');
+    int last = in.find(']');
+
+    if(first == -1 || last == -1 || first > last){
+        throw std::invalid_argument("error");
+    }
+    bool isOk = false;
+    string value = in.substr(0, first);
+    string unit = in.substr(first+1, last - first - 1 );
+    double val = stod(value);
+    for(int i=0; i<9; i++){
+        if(unit == temp[i]){
+            isOk = true;
+            ps.number = val;
+            switch (i)
+            {
+                case 0: ps.type = Unit::CM; break;
+                case 1: ps.type = Unit::M; break;
+                case 2: ps.type = Unit::KM; break;
+                case 3: ps.type = Unit::G; break;
+                case 4: ps.type = Unit::KG; break;
+                case 5: ps.type = Unit::TON; break;
+                case 6: ps.type = Unit::SEC; break;
+                case 7: ps.type = Unit::MIN; break;
+                case 8: ps.type = Unit::HOUR; break;
+            
+            }
+        }
+    }
+    if(isOk == false)
+       throw std::invalid_argument("error");
+return is;
+}
 
