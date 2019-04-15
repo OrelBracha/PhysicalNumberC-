@@ -8,26 +8,31 @@ namespace ariel
     class PhysicalNumber
     {
 
-        public:
+    
          Unit type ;
          double number ;
        
+
+    public:
+
+        PhysicalNumber()=default ;
+
          //constructor
-        PhysicalNumber(double number , Unit type) ;
+        PhysicalNumber(double, Unit) ;
          //copy consrtuctor
         PhysicalNumber(const PhysicalNumber& pn);
 
         //"+" onary
-        const PhysicalNumber operator+() const;
+         PhysicalNumber operator+() const;
         
         //"-" onary
-        const PhysicalNumber operator-() const;
+         PhysicalNumber operator-() const;
        
         // "+" operator
-        PhysicalNumber operator+(const PhysicalNumber& num1 ) ;
+        PhysicalNumber operator+(const PhysicalNumber& num1 ) const ;
         
         // "-" operator
-        PhysicalNumber operator-(const PhysicalNumber& num1 ) ;
+        PhysicalNumber operator-(const PhysicalNumber& num1 ) const;
 
         // "+=" operator
         PhysicalNumber& operator+=(const PhysicalNumber& size) ;
