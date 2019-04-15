@@ -5,6 +5,13 @@
  * @since 2019-02
  */
 
+/**
+ * Examples of automatic tests for the exercise on physical numbers.
+ * used for task
+ * @author Erel Segal-Halevi
+ * @since 2019-02
+ */
+
 #include <iostream>
 #include <sstream>
 using std::cout, std::endl, std::istringstream;
@@ -227,10 +234,18 @@ int main() {
 
 
     .setname("Operator '++(postfix)' unary - Compatible dimensions")
-    .CHECK_OUTPUT(a1++,"3[cm]")                                       //2[cm]++ = 3[cm]
-    .CHECK_OUTPUT(a2++,"4[km]")                                       //3[km]++ = 4[cm]
-    .CHECK_OUTPUT(a3++,"5[m]")                                        //4[m]++ = 5[m]
-    .CHECK_OUTPUT(a4++,"1.1[km]")                                     //0.1[km]++ = 1.1[km]
+    .CHECK_OK(a1=PhysicalNumber(2,Unit::CM))
+    .CHECK_OK(a1++)
+    .CHECK_OUTPUT(a1,"3[cm]")
+    .CHECK_OK(a2=PhysicalNumber(3,Unit::KM)) 
+    .CHECK_OK(a2++)                                      //2[cm]++ = 3[cm]
+    .CHECK_OUTPUT(a2,"4[km]")
+    .CHECK_OK(a3=PhysicalNumber(4,Unit::M))
+    .CHECK_OK(a3++)                                       //3[km]++ = 4[cm]
+    .CHECK_OUTPUT(a3,"5[m]")
+    .CHECK_OK(a4=PhysicalNumber(0.1,Unit::KM))
+    .CHECK_OK(a4++)                                        //4[m]++ = 5[m]
+    .CHECK_OUTPUT(a4,"1.1[km]")                                     //0.1[km]++ = 1.1[km]
     //.CHECK_OUTPUT(PhysicalNumber(60,Unit::MIN)++,"61[min]")           //60[min]++ = 61[min]
     //.CHECK_OUTPUT(PhysicalNumber(99,Unit::SEC)++,"100[min]")          //99[min]++ = 100[min]
 
@@ -264,7 +279,7 @@ int main() {
 
     .setname("Operator '+' unary - Compatible dimensions")
     .CHECK_EQUAL(+a1,PhysicalNumber(2,Unit::CM))                           //+2[cm] = 2[cm]
-    .CHECK_EQUAL(+PhysicalNumber(-2,Unit::CM),PhysicalNumber(2,Unit::CM))  //+(-2)[cm] = 2[cm]
+    .CHECK_EQUAL(+PhysicalNumber(-2,Unit::CM),PhysicalNumber(-2,Unit::CM))  //+(-2)[cm] = 2[cm]
     .CHECK_EQUAL(+PhysicalNumber(0,Unit::MIN),PhysicalNumber(0,Unit::MIN)) //+0[cm] = 0[cm]
 
 
@@ -313,13 +328,13 @@ int main() {
     .CHECK_OK(istringstream("520.8[cm]") >> z)
     .CHECK_OUTPUT(z,"5[hours]")
     .CHECK_OK(istringstream("700[grams]") >> y)
-    .CHECK_OUTPUT(y,"700[m]")
-      .print(cout, /*show_grade=*/false);
+    .CHECK_OUTPUT(y,"700[m]");
+      
       grade = testcase.grade();
     } else {
       testcase.print_signal(signal);
       grade = 0;
     }
-    cout <<  "*** Grade: " << grade << " ***" << endl;
+    cout <<  "* Grade: " << grade << " *" << endl;
     return grade;
 }

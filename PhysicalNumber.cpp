@@ -5,7 +5,7 @@
 #include "PhysicalNumber.h"
 #include "Unit.h"
 
-
+//The Implementation
 using namespace std;
 using namespace ariel;
 double unitsArr[] = {1,100,100000,1,60,3600,1,1000,1000000};
@@ -27,13 +27,13 @@ PhysicalNumber::PhysicalNumber(const PhysicalNumber&  pn)
 //"+" onary
 const PhysicalNumber PhysicalNumber::operator+() const
 {
-    return PhysicalNumber(0, Unit::KM);
+    return *this;
 }
 
 //"-" onary
 const PhysicalNumber PhysicalNumber::operator-() const
 {
-    return PhysicalNumber(0, Unit::KM);
+    return PhysicalNumber(-1*(this->number),this->type);
 }
 
 // "+" operator
@@ -118,13 +118,19 @@ PhysicalNumber PhysicalNumber::operator+(const PhysicalNumber& other)
     // "==" operator
     const bool PhysicalNumber::operator==(const PhysicalNumber& num1)
     {
+        PhysicalNumber copy(num1);
+        int thisGroupType = (int)this->type/3 ;
+        int otherGroupType = (int)num1.type/3 ;
+       double ans ;
 
+        if(thisGroupType != otherGroupType)
+            throw std::invalid_argument("ERROR : can't decrement two numbers with different types") ;
         double conversion;
         PhysicalNumber num3(num1);
-        conversion = (double)(unitsArr[(int)num3.type]/unitsArr[(int)num1.type])*(num3.number);
-        num3.number = num3.number*conversion;
-        num3.type = num1.type;
-        if(num1.number==num3.number)
+        conversion = (double)(unitsArr[(int)num3.type]/unitsArr[(int)this->type])*(num3.number);
+        num3.number = conversion;
+        num3.type = this->type;
+        if(this->number==num3.number)
             return true ;
 
         return false ;
@@ -133,13 +139,19 @@ PhysicalNumber PhysicalNumber::operator+(const PhysicalNumber& other)
     // "!=" operator
     const bool PhysicalNumber::operator!=(const PhysicalNumber& num1)
     {
+        PhysicalNumber copy(num1);
+        int thisGroupType = (int)this->type/3 ;
+        int otherGroupType = (int)num1.type/3 ;
+       double ans ;
+
+        if(thisGroupType != otherGroupType)
+            throw std::invalid_argument("ERROR : can't decrement two numbers with different types") ;
         double conversion;
         PhysicalNumber num3(num1);
-        conversion = (double)(unitsArr[(int)num3.type]/unitsArr[(int)num1.type])*(num3.number);
-        num3.number = num3.number*conversion;
-        num3.type = num1.type;
-
-        if(num1.number!=num3.number)
+        conversion = (double)(unitsArr[(int)num3.type]/unitsArr[(int)this->type])*(num3.number);
+        num3.number = conversion;
+        num3.type = this->type;
+        if(this->number!=num3.number)
             return true ;
 
         return false ;
@@ -147,14 +159,20 @@ PhysicalNumber PhysicalNumber::operator+(const PhysicalNumber& other)
     }
     // ">=" operator
     const bool PhysicalNumber::operator>=(const PhysicalNumber& num1)
-    {
+    {   
+        PhysicalNumber copy(num1);
+        int thisGroupType = (int)this->type/3 ;
+        int otherGroupType = (int)num1.type/3 ;
+       double ans ;
+
+        if(thisGroupType != otherGroupType)
+            throw std::invalid_argument("ERROR : can't decrement two numbers with different types") ;
         double conversion;
         PhysicalNumber num3(num1);
-        conversion = (double)(unitsArr[(int)num3.type]/unitsArr[(int)num1.type])*(num3.number);
-        num3.number = num3.number*conversion;
-        num3.type = num1.type;
-
-        if(num1.number>=num3.number)
+        conversion = (double)(unitsArr[(int)num3.type]/unitsArr[(int)this->type])*(num3.number);
+        num3.number = conversion;
+        num3.type = this->type;
+        if(this->number>=num3.number)
             return true ;
 
         return false ;
@@ -165,29 +183,39 @@ PhysicalNumber PhysicalNumber::operator+(const PhysicalNumber& other)
     // "<=" operator
     const bool PhysicalNumber::operator<=(const PhysicalNumber& num1)
     {
+        PhysicalNumber copy(num1);
+        int thisGroupType = (int)this->type/3 ;
+        int otherGroupType = (int)num1.type/3 ;
+        double ans ;
+
+        if(thisGroupType != otherGroupType)
+            throw std::invalid_argument("ERROR : can't decrement two numbers with different types") ;
         double conversion;
         PhysicalNumber num3(num1);
-        conversion = (double)(unitsArr[(int)num3.type]/unitsArr[(int)num1.type])*(num3.number);
-        num3.number = num3.number*conversion;
-        num3.type = num1.type;
-
-        if(num1.number<=num3.number)
+        conversion = (double)(unitsArr[(int)num3.type]/unitsArr[(int)this->type])*(num3.number);
+        num3.number = conversion;
+        num3.type = this->type;
+        if(this->number<=num3.number)
             return true ;
 
         return false ;
-
-
     }
     // ">" operator
     const bool PhysicalNumber::operator>(const PhysicalNumber& num1)
     {
+       PhysicalNumber copy(num1);
+        int thisGroupType = (int)this->type/3 ;
+        int otherGroupType = (int)num1.type/3 ;
+       double ans ;
+
+        if(thisGroupType != otherGroupType)
+            throw std::invalid_argument("ERROR : can't decrement two numbers with different types") ;
         double conversion;
         PhysicalNumber num3(num1);
-        conversion = (double)(unitsArr[(int)num3.type]/unitsArr[(int)num1.type])*(num3.number);
-        num3.number = num3.number*conversion;
-        num3.type = num1.type;
-
-        if(num1.number>num3.number)
+        conversion = (double)(unitsArr[(int)num3.type]/unitsArr[(int)this->type])*(num3.number);
+        num3.number = conversion;
+        num3.type = this->type;
+        if(this->number>num3.number)
             return true ;
 
         return false ;
@@ -197,13 +225,19 @@ PhysicalNumber PhysicalNumber::operator+(const PhysicalNumber& other)
     // "<" operator
     const bool PhysicalNumber::operator<(const PhysicalNumber& num1)
     {
+        PhysicalNumber copy(num1);
+        int thisGroupType = (int)this->type/3 ;
+        int otherGroupType = (int)num1.type/3 ;
+        double ans ;
+
+        if(thisGroupType != otherGroupType)
+            throw std::invalid_argument("ERROR : can't decrement two numbers with different types") ;
         double conversion;
         PhysicalNumber num3(num1);
-        conversion = (double)(unitsArr[(int)num3.type]/unitsArr[(int)num1.type])*(num3.number);
-        num3.number = num3.number*conversion;
-        num3.type = num1.type;
-
-        if(num1.number<num3.number)
+        conversion = (double)(unitsArr[(int)num3.type]/unitsArr[(int)this->type])*(num3.number);
+        num3.number = conversion;
+        num3.type = this->type;
+        if(this->number<num3.number)
             return true ;
 
         return false ;
@@ -213,7 +247,7 @@ PhysicalNumber PhysicalNumber::operator+(const PhysicalNumber& other)
     // "++" operator
     PhysicalNumber& PhysicalNumber::operator++()
     {
-       ++this->number ;
+       this->number=this->number+1 ;
        return *this ;
 
     }
@@ -221,7 +255,7 @@ PhysicalNumber PhysicalNumber::operator+(const PhysicalNumber& other)
     //"--"  operator
     PhysicalNumber& PhysicalNumber::operator--()
     {
-        --this->number ;
+        this->number=this->number-1 ;
         return *this ;
 
     }
@@ -229,14 +263,14 @@ PhysicalNumber PhysicalNumber::operator+(const PhysicalNumber& other)
     PhysicalNumber& PhysicalNumber::operator--(int num)
     {
        PhysicalNumber pn(*this);
-       this->number-- ;
+       operator--();
        return pn  ;
     }
     // "++" operator
     PhysicalNumber& PhysicalNumber::operator++(int num)
     {
         PhysicalNumber pn(*this);
-        this->number++           ;
+        operator++();           ;
         return pn   ;
     }
 
@@ -244,15 +278,17 @@ PhysicalNumber PhysicalNumber::operator+(const PhysicalNumber& other)
     ostream& ariel::operator<<(ostream& os,const PhysicalNumber& pn)
     {
         string unitStr[9]={"cm" , "m" , "km" , "sec" , "min" , "hour" , "g" , "kg" , "ton"};
-
+        os.precision(11);
         return os<<pn.number << "[" << unitStr[(int)pn.type] << "]";
     }
+
 
     //">>" operator - input stream
     istream& ariel::operator>>(istream& is,PhysicalNumber& pn)
     {
         string str = "";
-        is>>str;//25.2[kg]
+        double number;
+        is>>number>>str;//25.2[kg]
         string unitStr[9]={"CM" , "M" , "KM" , "SEC" , "MIN" , "HOUR" , "G" , "KG" , "TON"};
         int find1=str.find('[');
         int find2 = str.find(']');
@@ -271,18 +307,18 @@ PhysicalNumber PhysicalNumber::operator+(const PhysicalNumber& other)
                 }
             }
 
-            string value = str.substr(0, find1);
+            //string value = str.substr(0, find1);//
 
             if (!ans) {
                 try {
-                    myValue = stod(value);
+                   // myValue = stod(value);//
                 }
                 catch (exception) {
                     auto error = is.rdstate();
                     return is;
                 }
 
-                pn.number = myValue;
+               //
                 pn.type = (Unit)(stod(myUnit));
             } else {
                 auto error = is.rdstate();
@@ -292,8 +328,8 @@ PhysicalNumber PhysicalNumber::operator+(const PhysicalNumber& other)
         {
           auto error= is.rdstate();
         }
-       
+        
+        pn.number = number;
         return is;
     }
-
 
